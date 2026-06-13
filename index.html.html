@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Priss AI — Turn words into stunning videos</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f3;color:#1a1a1a;}
+/* TOPBAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 32px;background:#fff;border-bottom:1px solid #e8e8e8;position:sticky;top:0;z-index:100;}
+.logo{display:flex;align-items:center;gap:9px;font-size:18px;font-weight:600;color:#1a1a1a;text-decoration:none;}
+.logo-icon{width:30px;height:30px;border-radius:8px;background:#534AB7;display:flex;align-items:center;justify-content:center;}
+.logo-icon i{color:#fff;font-size:15px;}
+.nav{display:flex;gap:6px;align-items:center;}
+.nav button{font-size:13px;padding:7px 15px;border-radius:8px;border:1px solid #e8e8e8;background:transparent;color:#555;cursor:pointer;font-family:inherit;transition:all 0.15s;}
+.nav button:hover{background:#f5f5f3;color:#1a1a1a;}
+.nav button.active{background:#f5f5f3;color:#1a1a1a;}
+.nav button.primary{background:#534AB7;color:#fff;border-color:#534AB7;}
+.nav button.primary:hover{background:#3C3489;}
+/* PAGES */
+.page{display:none;}
+.page.active{display:block;}
+/* HERO */
+.hero{text-align:center;padding:64px 32px 48px;background:#fff;border-bottom:1px solid #e8e8e8;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:5px 14px;border-radius:20px;border:1px solid #AFA9EC;color:#534AB7;background:#EEEDFE;margin-bottom:22px;}
+.hero h1{font-size:44px;font-weight:700;line-height:1.18;margin-bottom:16px;color:#1a1a1a;}
+.hero h1 span{color:#534AB7;}
+.hero p{font-size:17px;color:#666;max-width:500px;margin:0 auto 30px;line-height:1.65;}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{padding:12px 26px;border-radius:9px;border:none;background:#534AB7;color:#fff;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.15s;}
+.btn-primary:hover{background:#3C3489;}
+.btn-outline{padding:12px 26px;border-radius:9px;border:1px solid #d0d0d0;background:#fff;color:#1a1a1a;font-size:15px;cursor:pointer;font-family:inherit;transition:background 0.15s;}
+.btn-outline:hover{background:#f5f5f3;}
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:28px 32px;background:#fff;border-bottom:1px solid #e8e8e8;}
+.stat{text-align:center;padding:18px;background:#f5f5f3;border-radius:10px;}
+.stat-num{font-size:26px;font-weight:700;color:#534AB7;}
+.stat-lbl{font-size:13px;color:#777;margin-top:4px;}
+/* FEATURES */
+.features-wrap{padding:32px;}
+.features-title{font-size:22px;font-weight:700;text-align:center;margin-bottom:6px;}
+.features-sub{font-size:15px;color:#777;text-align:center;margin-bottom:24px;}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.feat-card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:20px;}
+.feat-icon{width:40px;height:40px;border-radius:10px;background:#EEEDFE;display:flex;align-items:center;justify-content:center;margin-bottom:14px;color:#534AB7;font-size:20px;}
+.feat-card h3{font-size:15px;font-weight:600;margin-bottom:7px;}
+.feat-card p{font-size:13px;color:#777;line-height:1.55;}
+/* HOW IT WORKS */
+.how-wrap{padding:0 32px 32px;}
+.how-title{font-size:22px;font-weight:700;text-align:center;margin-bottom:6px;}
+.how-sub{font-size:15px;color:#777;text-align:center;margin-bottom:24px;}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.step{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:20px;text-align:center;}
+.step-num{width:36px;height:36px;border-radius:50%;background:#534AB7;color:#fff;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}
+.step h4{font-size:14px;font-weight:600;margin-bottom:6px;}
+.step p{font-size:13px;color:#777;line-height:1.5;}
+/* CTA BAND */
+.cta-band{background:#534AB7;padding:40px 32px;text-align:center;margin:0 0 0;}
+.cta-band h2{font-size:26px;font-weight:700;color:#fff;margin-bottom:10px;}
+.cta-band p{font-size:15px;color:rgba(255,255,255,0.8);margin-bottom:22px;}
+.btn-white{padding:12px 28px;border-radius:9px;border:none;background:#fff;color:#534AB7;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;}
+.btn-white:hover{background:#f0f0ff;}
+/* FOOTER */
+footer{background:#fff;border-top:1px solid #e8e8e8;padding:24px 32px;display:flex;align-items:center;justify-content:space-between;}
+.footer-logo{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:#1a1a1a;}
+.footer-links{display:flex;gap:20px;}
+.footer-links a{font-size:13px;color:#777;text-decoration:none;}
+.footer-links a:hover{color:#534AB7;}
+footer p{font-size:12px;color:#aaa;}
+/* GENERATOR */
+.gen-wrap{padding:28px 32px;display:grid;grid-template-columns:1fr 290px;gap:18px;max-width:1100px;margin:0 auto;}
+.gen-main{display:flex;flex-direction:column;gap:16px;}
+.card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:20px;}
+.card-title{font-size:13px;font-weight:600;margin-bottom:14px;color:#888;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:0.04em;}
+textarea{width:100%;border:none;background:transparent;font-size:15px;color:#1a1a1a;resize:none;outline:none;font-family:inherit;line-height:1.65;min-height:100px;}
+.tags-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid #f0f0f0;}
+.tag{font-size:12px;padding:5px 12px;border-radius:8px;border:1px solid #e0e0e0;background:#f5f5f3;color:#666;cursor:pointer;transition:all 0.12s;}
+.tag:hover,.tag.on{border-color:#534AB7;color:#534AB7;background:#EEEDFE;}
+.gen-btn{width:100%;padding:13px;border-radius:10px;border:none;background:#534AB7;color:#fff;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;transition:background 0.15s;}
+.gen-btn:hover{background:#3C3489;}
+.sidebar{display:flex;flex-direction:column;gap:16px;}
+.setting-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid #f5f5f5;}
+.setting-row:last-child{border:none;}
+.setting-lbl{font-size:13px;color:#666;}
+select{border:1px solid #e0e0e0;border-radius:8px;padding:5px 10px;font-size:13px;background:#fff;color:#1a1a1a;cursor:pointer;font-family:inherit;}
+.credits-box{background:#EEEDFE;border-radius:10px;padding:14px 16px;text-align:center;}
+.credits-num{font-size:26px;font-weight:700;color:#534AB7;}
+.credits-lbl{font-size:12px;color:#3C3489;margin-top:2px;}
+.progress{height:6px;border-radius:3px;background:#d0cef0;margin:10px 0;}
+.progress-fill{height:100%;border-radius:3px;background:#534AB7;width:65%;}
+.output-area{min-height:180px;border-radius:10px;background:#f5f5f3;border:1px solid #e8e8e8;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:#aaa;font-size:14px;transition:background 0.3s;}
+.spinner{width:32px;height:32px;border-radius:50%;border:2.5px solid #e0e0e0;border-top-color:#534AB7;animation:spin 0.9s linear infinite;display:none;}
+@keyframes spin{to{transform:rotate(360deg);}}
+/* GALLERY */
+.gallery-header{padding:28px 32px 0;display:flex;align-items:center;justify-content:space-between;}
+.gallery-header h2{font-size:22px;font-weight:700;}
+.gallery-filters{display:flex;gap:8px;}
+.filter-btn{font-size:12px;padding:6px 14px;border-radius:20px;border:1px solid #e0e0e0;background:#fff;color:#666;cursor:pointer;font-family:inherit;transition:all 0.12s;}
+.filter-btn.on{background:#534AB7;color:#fff;border-color:#534AB7;}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:18px 32px 32px;}
+.vid-card{border-radius:12px;border:1px solid #e8e8e8;overflow:hidden;background:#fff;transition:transform 0.15s;}
+.vid-card:hover{transform:translateY(-2px);}
+.vid-thumb{height:130px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;}
+.t1{background:#26215C;}
+.t2{background:#04342C;}
+.t3{background:#4A1B0C;}
+.t4{background:#042C53;}
+.t5{background:#412402;}
+.t6{background:#3C3489;}
+.play-ring{width:38px;height:38px;border-radius:50%;border:2px solid rgba(255,255,255,0.5);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;transition:background 0.15s;cursor:pointer;}
+.play-ring:hover{background:rgba(255,255,255,0.15);}
+.vid-dur{position:absolute;bottom:9px;right:10px;font-size:11px;color:rgba(255,255,255,0.9);background:rgba(0,0,0,0.45);padding:2px 7px;border-radius:4px;}
+.vid-like{position:absolute;top:9px;right:10px;color:rgba(255,255,255,0.75);font-size:16px;cursor:pointer;transition:color 0.12s;}
+.vid-like:hover{color:#ff6b6b;}
+.vid-info{padding:11px 13px;}
+.vid-title{font-size:13px;font-weight:600;margin-bottom:5px;}
+.vid-meta{font-size:11px;color:#aaa;display:flex;justify-content:space-between;align-items:center;}
+.avatar{width:18px;height:18px;border-radius:50%;background:#EEEDFE;display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#534AB7;font-weight:700;vertical-align:middle;margin-right:4px;}
+/* PRICING */
+.pricing-wrap{padding:32px;}
+.pricing-title{font-size:22px;font-weight:700;text-align:center;margin-bottom:6px;}
+.pricing-sub{font-size:15px;color:#777;text-align:center;margin-bottom:28px;}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:900px;margin:0 auto;}
+.plan-card{background:#fff;border:1px solid #e8e8e8;border-radius:14px;padding:24px;}
+.plan-card.popular{border:2px solid #534AB7;}
+.plan-badge{font-size:11px;padding:3px 11px;border-radius:20px;background:#EEEDFE;color:#534AB7;margin-bottom:12px;display:inline-block;font-weight:600;}
+.plan-name{font-size:17px;font-weight:700;margin-bottom:4px;}
+.plan-price{font-size:32px;font-weight:700;color:#534AB7;margin:12px 0 5px;}
+.plan-price span{font-size:15px;color:#aaa;font-weight:400;}
+.plan-desc{font-size:13px;color:#888;margin-bottom:18px;}
+.plan-features{list-style:none;margin-bottom:20px;}
+.plan-features li{font-size:13px;padding:6px 0;display:flex;align-items:center;gap:8px;color:#555;border-bottom:1px solid #f5f5f5;}
+.plan-features li:last-child{border:none;}
+.plan-features li i{color:#534AB7;font-size:14px;}
+/* AUTH */
+.auth-wrap{display:flex;align-items:center;justify-content:center;padding:48px 32px;min-height:calc(100vh - 60px);background:#f5f5f3;}
+.auth-card{background:#fff;border:1px solid #e8e8e8;border-radius:16px;padding:36px;width:100%;max-width:400px;box-shadow:0 4px 24px rgba(0,0,0,0.06);}
+.auth-logo{display:flex;align-items:center;gap:9px;font-size:18px;font-weight:700;justify-content:center;margin-bottom:28px;}
+.auth-tab{display:flex;border:1px solid #e8e8e8;border-radius:9px;overflow:hidden;margin-bottom:24px;}
+.auth-tab button{flex:1;padding:10px;font-size:13px;font-weight:600;border:none;background:transparent;color:#888;cursor:pointer;font-family:inherit;transition:all 0.12s;}
+.auth-tab button.on{background:#534AB7;color:#fff;}
+.input-group{margin-bottom:16px;}
+.input-group label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:6px;}
+.input-group input{width:100%;padding:10px 14px;border:1px solid #e0e0e0;border-radius:9px;font-size:14px;background:#fff;color:#1a1a1a;font-family:inherit;outline:none;transition:border-color 0.12s;}
+.input-group input:focus{border-color:#534AB7;}
+.auth-submit{width:100%;padding:12px;border-radius:9px;border:none;background:#534AB7;color:#fff;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:8px;transition:background 0.15s;}
+.auth-submit:hover{background:#3C3489;}
+.auth-divider{text-align:center;font-size:13px;color:#bbb;margin:16px 0;position:relative;}
+.auth-divider::before,.auth-divider::after{content:'';position:absolute;top:50%;width:42%;height:1px;background:#e8e8e8;}
+.auth-divider::before{left:0;}
+.auth-divider::after{right:0;}
+.google-btn{width:100%;padding:11px;border-radius:9px;border:1px solid #e0e0e0;background:#fff;color:#1a1a1a;font-size:14px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:9px;transition:background 0.12s;}
+.google-btn:hover{background:#f5f5f3;}
+@media(max-width:700px){
+  .stats,.features,.steps,.pricing-grid,.gallery-grid{grid-template-columns:1fr;}
+  .gen-wrap{grid-template-columns:1fr;}
+  .hero h1{font-size:30px;}
+  .topbar{padding:12px 16px;}
+  .nav button:not(.primary){display:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="logo" href="#">
+    <div class="logo-icon"><i class="ti ti-player-play"></i></div>
+    Priss AI
+  </a>
+  <div class="nav">
+    <button class="active" onclick="show('home',this)">Home</button>
+    <button onclick="show('generate',this)">Generate</button>
+    <button onclick="show('gallery',this)">Gallery</button>
+    <button onclick="show('pricing',this)">Pricing</button>
+    <button class="primary" onclick="show('auth',this)">Sign up free</button>
+  </div>
+</div>
+
+<!-- HOME -->
+<div id="home" class="page active">
+  <div class="hero">
+    <div class="hero-badge"><i class="ti ti-sparkles" style="font-size:13px;"></i> AI-powered video generation</div>
+    <h1>Turn your words into<br><span>stunning videos</span></h1>
+    <p>Type a prompt, choose your style, and Priss AI generates beautiful videos in seconds. Free to try — no account needed.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="show('generate',null)"><i class="ti ti-player-play" style="font-size:14px;vertical-align:-2px;margin-right:5px;"></i>Start generating free</button>
+      <button class="btn-outline" onclick="show('gallery',null)">Browse gallery</button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num">2.4M+</div><div class="stat-lbl">Videos generated</div></div>
+    <div class="stat"><div class="stat-num">180K+</div><div class="stat-lbl">Active users</div></div>
+    <div class="stat"><div class="stat-num">4.9 <i class="ti ti-star" style="font-size:15px;vertical-align:-1px;"></i></div><div class="stat-lbl">Average rating</div></div>
+  </div>
+
+  <div class="features-wrap">
+    <h2 class="features-title">Everything you need to create</h2>
+    <p class="features-sub">Powerful features built for creators of all levels</p>
+    <div class="features">
+      <div class="feat-card">
+        <div class="feat-icon"><i class="ti ti-wand"></i></div>
+        <h3>Smart prompt enhancer</h3>
+        <p>Automatically improves your prompt to get the best possible video output every time.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon"><i class="ti ti-clock"></i></div>
+        <h3>Fast generation</h3>
+        <p>Get your video in under 60 seconds. No waiting in long queues or slow processing.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon"><i class="ti ti-world"></i></div>
+        <h3>Public gallery</h3>
+        <p>Share your creations with the world and explore videos made by the community.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon"><i class="ti ti-adjustments"></i></div>
+        <h3>Full style control</h3>
+        <p>Choose from cinematic, anime, realistic, abstract and more. Adjust duration and quality.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon"><i class="ti ti-download"></i></div>
+        <h3>Download & share</h3>
+        <p>Download your videos in up to 4K resolution and share them anywhere you like.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon"><i class="ti ti-bolt"></i></div>
+        <h3>Credit system</h3>
+        <p>Start free with 50 credits. Buy more anytime or upgrade to a plan for more power.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="how-wrap">
+    <h2 class="how-title">How it works</h2>
+    <p class="how-sub">Three simple steps to your first AI video</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Write your prompt</h4>
+        <p>Describe the video scene you want in plain English. Be as detailed or brief as you like.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Choose your settings</h4>
+        <p>Pick your style, duration, aspect ratio, and quality. Then hit Generate.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Download & share</h4>
+        <p>Your video is ready in seconds. Download it or share it to the public gallery.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-band">
+    <h2>Ready to create your first video?</h2>
+    <p>Join 180,000+ creators already using Priss AI. Free to start.</p>
+    <button class="btn-white" onclick="show('auth',null)">Create free account</button>
+  </div>
+
+  <footer>
+    <div class="footer-logo">
+      <div class="logo-icon" style="width:24px;height:24px;"><i class="ti ti-player-play" style="font-size:12px;"></i></div>
+      Priss AI
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Contact</a>
+      <a href="#">API</a>
+    </div>
+    <p>&copy; 2026 Priss AI. All rights reserved.</p>
+  </footer>
+</div>
+
+<!-- GENERATE -->
+<div id="generate" class="page">
+  <div class="gen-wrap">
+    <div class="gen-main">
+      <div class="card">
+        <div class="card-title"><i class="ti ti-pencil" style="font-size:15px;"></i> Describe your video</div>
+        <textarea id="promptBox" placeholder="e.g. A cinematic shot of a lone wolf running through a snowy forest at golden hour, slow motion, epic…">A futuristic city skyline at night, flying cars weaving between glowing skyscrapers, cyberpunk aesthetic, cinematic drone shot</textarea>
+        <div class="tags-row">
+          <div class="tag on" onclick="this.classList.toggle('on')">Cinematic</div>
+          <div class="tag" onclick="this.classList.toggle('on')">Anime</div>
+          <div class="tag" onclick="this.classList.toggle('on')">Realistic</div>
+          <div class="tag" onclick="this.classList.toggle('on')">Abstract</div>
+          <div class="tag" onclick="this.classList.toggle('on')">Nature</div>
+          <div class="tag" onclick="this.classList.toggle('on')">Slow motion</div>
+          <div class="tag" onclick="this.classList.toggle('on')">Aerial</div>
+          <div class="tag" onclick="this.classList.toggle('on')">Fantasy</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><i class="ti ti-photo"></i> Output preview</div>
+        <div class="output-area" id="outputArea">
+          <div class="spinner" id="spinner"></div>
+          <i class="ti ti-player-play" id="outputIcon" style="font-size:32px;color:#d0d0d0;"></i>
+          <span id="outputText">Your video will appear here</span>
+        </div>
+        <div id="outputActions" style="display:none;margin-top:14px;display:none;gap:10px;">
+          <button class="gen-btn" style="background:#f5f5f3;color:#534AB7;border:1px solid #534AB7;"><i class="ti ti-download"></i> Download video</button>
+          <button class="gen-btn" style="background:#f5f5f3;color:#534AB7;border:1px solid #534AB7;" onclick="show('gallery',null)"><i class="ti ti-world"></i> Share to gallery</button>
+        </div>
+      </div>
+
+      <button class="gen-btn" onclick="generateVideo()">
+        <i class="ti ti-player-play"></i>
+        Generate video
+      </button>
+    </div>
+
+    <div class="sidebar">
+      <div class="card">
+        <div class="card-title"><i class="ti ti-settings"></i> Settings</div>
+        <div class="setting-row">
+          <span class="setting-lbl">Duration</span>
+          <select><option>5 sec</option><option>10 sec</option><option>15 sec</option></select>
+        </div>
+        <div class="setting-row">
+          <span class="setting-lbl">Aspect ratio</span>
+          <select><option>16:9</option><option>9:16</option><option>1:1</option></select>
+        </div>
+        <div class="setting-row">
+          <span class="setting-lbl">Quality</span>
+          <select><option>720p</option><option>1080p</option><option>4K</option></select>
+        </div>
+        <div class="setting-row">
+          <span class="setting-lbl">Style</span>
+          <select><option>Cinematic</option><option>Anime</option><option>Realistic</option><option>Abstract</option></select>
+        </div>
+        <div class="setting-row">
+          <span class="setting-lbl">Motion speed</span>
+          <select><option>Normal</option><option>Slow motion</option><option>Fast</option></select>
+        </div>
+        <div class="setting-row">
+          <span class="setting-lbl">Camera</span>
+          <select><option>Auto</option><option>Drone / aerial</option><option>Close-up</option><option>Wide angle</option></select>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="credits-box">
+          <div class="credits-num">120</div>
+          <div class="credits-lbl">credits remaining</div>
+          <div class="progress"><div class="progress-fill"></div></div>
+        </div>
+        <p style="margin-top:12px;font-size:12px;color:#888;line-height:1.6;">Each 5-second video uses <strong style="color:#1a1a1a;">10 credits.</strong> Upgrade for more.</p>
+        <button class="gen-btn" style="margin-top:12px;font-size:13px;padding:10px;" onclick="show('pricing',null)">
+          <i class="ti ti-bolt"></i> Buy more credits
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><i class="ti ti-history"></i> Recent</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;gap:10px;align-items:center;">
+            <div style="width:48px;height:36px;border-radius:6px;background:#26215C;flex-shrink:0;"></div>
+            <div><div style="font-size:12px;font-weight:600;margin-bottom:2px;">Cyberpunk city</div><div style="font-size:11px;color:#aaa;">2 min ago · 0:05</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <div style="width:48px;height:36px;border-radius:6px;background:#04342C;flex-shrink:0;"></div>
+            <div><div style="font-size:12px;font-weight:600;margin-bottom:2px;">Forest waterfall</div><div style="font-size:11px;color:#aaa;">18 min ago · 0:10</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div id="gallery" class="page">
+  <div class="gallery-header">
+    <h2>Community gallery</h2>
+    <div class="gallery-filters">
+      <button class="filter-btn on" onclick="setFilter(this)">All</button>
+      <button class="filter-btn" onclick="setFilter(this)">Trending</button>
+      <button class="filter-btn" onclick="setFilter(this)">Cinematic</button>
+      <button class="filter-btn" onclick="setFilter(this)">Anime</button>
+      <button class="filter-btn" onclick="setFilter(this)">Nature</button>
+    </div>
+  </div>
+  <div class="gallery-grid">
+    <div class="vid-card">
+      <div class="vid-thumb t1"><div class="play-ring"><i class="ti ti-player-play" style="font-size:14px;"></i></div><div class="vid-dur">0:05</div><div class="vid-like"><i class="ti ti-heart"></i></div></div>
+      <div class="vid-info"><div class="vid-title">Cyberpunk city at night</div><div class="vid-meta"><span><span class="avatar">RK</span>Raj K.</span><span><i class="ti ti-heart" style="font-size:11px;"></i> 842</span></div></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb t2"><div class="play-ring"><i class="ti ti-player-play" style="font-size:14px;"></i></div><div class="vid-dur">0:10</div><div class="vid-like"><i class="ti ti-heart"></i></div></div>
+      <div class="vid-info"><div class="vid-title">Forest waterfall slow motion</div><div class="vid-meta"><span><span class="avatar">AM</span>Aisha M.</span><span><i class="ti ti-heart" style="font-size:11px;"></i> 610</span></div></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb t3"><div class="play-ring"><i class="ti ti-player-play" style="font-size:14px;"></i></div><div class="vid-dur">0:05</div><div class="vid-like"><i class="ti ti-heart"></i></div></div>
+      <div class="vid-info"><div class="vid-title">Desert sunrise timelapse</div><div class="vid-meta"><span><span class="avatar">LS</span>Leo S.</span><span><i class="ti ti-heart" style="font-size:11px;"></i> 504</span></div></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb t4"><div class="play-ring"><i class="ti ti-player-play" style="font-size:14px;"></i></div><div class="vid-dur">0:15</div><div class="vid-like"><i class="ti ti-heart"></i></div></div>
+      <div class="vid-info"><div class="vid-title">Ocean waves aerial view</div><div class="vid-meta"><span><span class="avatar">PJ</span>Priya J.</span><span><i class="ti ti-heart" style="font-size:11px;"></i> 398</span></div></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb t5"><div class="play-ring"><i class="ti ti-player-play" style="font-size:14px;"></i></div><div class="vid-dur">0:05</div><div class="vid-like"><i class="ti ti-heart"></i></div></div>
+      <div class="vid-info"><div class="vid-title">Anime cherry blossom festival</div><div class="vid-meta"><span><span class="avatar">YT</span>Yuki T.</span><span><i class="ti ti-heart" style="font-size:11px;"></i> 721</span></div></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb t6"><div class="play-ring"><i class="ti ti-player-play" style="font-size:14px;"></i></div><div class="vid-dur">0:10</div><div class="vid-like"><i class="ti ti-heart"></i></div></div>
+      <div class="vid-info"><div class="vid-title">Space nebula flythrough</div><div class="vid-meta"><span><span class="avatar">NK</span>Nina K.</span><span><i class="ti ti-heart" style="font-size:11px;"></i> 933</span></div></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb t2"><div class="play-ring"><i class="ti ti-player-play" style="font-size:14px;"></i></div><div class="vid-dur">0:05</div><div class="vid-like"><i class="ti ti-heart"></i></div></div>
+      <div class="vid-info"><div class="vid-title">Mountain snow timelapse</div><div class="vid-meta"><span><span class="avatar">DM</span>Dev M.</span><span><i class="ti ti-heart" style="font-size:11px;"></i> 289</span></div></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb t1"><div class="play-ring"><i class="ti ti-player-play" style="font-size:14px;"></i></div><div class="vid-dur">0:10</div><div class="vid-like"><i class="ti ti-heart"></i></div></div>
+      <div class="vid-info"><div class="vid-title">Neon Tokyo street market</div><div class="vid-meta"><span><span class="avatar">SK</span>Sara K.</span><span><i class="ti ti-heart" style="font-size:11px;"></i> 467</span></div></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb t5"><div class="play-ring"><i class="ti ti-player-play" style="font-size:14px;"></i></div><div class="vid-dur">0:15</div><div class="vid-like"><i class="ti ti-heart"></i></div></div>
+      <div class="vid-info"><div class="vid-title">Fantasy castle in clouds</div><div class="vid-meta"><span><span class="avatar">AL</span>Alex L.</span><span><i class="ti ti-heart" style="font-size:11px;"></i> 812</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<div id="pricing" class="page">
+  <div class="pricing-wrap">
+    <h2 class="pricing-title">Simple, transparent pricing</h2>
+    <p class="pricing-sub">Start free, upgrade when you're ready</p>
+    <div class="pricing-grid">
+      <div class="plan-card">
+        <div class="plan-name">Free</div>
+        <div class="plan-price">$0<span>/month</span></div>
+        <div class="plan-desc">Great for trying out Priss AI</div>
+        <ul class="plan-features">
+          <li><i class="ti ti-check"></i>50 credits/month</li>
+          <li><i class="ti ti-check"></i>5-second videos only</li>
+          <li><i class="ti ti-check"></i>720p quality</li>
+          <li><i class="ti ti-check"></i>Public gallery access</li>
+          <li><i class="ti ti-check"></i>3 style options</li>
+        </ul>
+        <button class="btn-outline" style="width:100%;padding:11px;" onclick="show('auth',null)">Get started free</button>
+      </div>
+      <div class="plan-card popular">
+        <div class="plan-badge">Most popular</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">$19<span>/month</span></div>
+        <div class="plan-desc">For creators who generate often</div>
+        <ul class="plan-features">
+          <li><i class="ti ti-check"></i>500 credits/month</li>
+          <li><i class="ti ti-check"></i>Up to 15-second videos</li>
+          <li><i class="ti ti-check"></i>1080p quality</li>
+          <li><i class="ti ti-check"></i>Priority generation queue</li>
+          <li><i class="ti ti-check"></i>Download videos</li>
+          <li><i class="ti ti-check"></i>All style options</li>
+        </ul>
+        <button class="btn-primary" style="width:100%;padding:11px;" onclick="show('auth',null)">Start Pro</button>
+      </div>
+      <div class="plan-card">
+        <div class="plan-name">Studio</div>
+        <div class="plan-price">$49<span>/month</span></div>
+        <div class="plan-desc">For teams and power users</div>
+        <ul class="plan-features">
+          <li><i class="ti ti-check"></i>2000 credits/month</li>
+          <li><i class="ti ti-check"></i>Up to 60-second videos</li>
+          <li><i class="ti ti-check"></i>4K quality</li>
+          <li><i class="ti ti-check"></i>API access</li>
+          <li><i class="ti ti-check"></i>Remove watermark</li>
+          <li><i class="ti ti-check"></i>5 team seats</li>
+        </ul>
+        <button class="btn-outline" style="width:100%;padding:11px;" onclick="show('auth',null)">Start Studio</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AUTH -->
+<div id="auth" class="page">
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <div class="logo-icon"><i class="ti ti-player-play"></i></div>
+        Priss AI
+      </div>
+      <div class="auth-tab">
+        <button class="on" id="loginTab" onclick="switchTab('login')">Sign in</button>
+        <button id="signupTab" onclick="switchTab('signup')">Create account</button>
+      </div>
+      <div id="loginForm">
+        <div class="input-group"><label>Email</label><input type="email" placeholder="you@example.com"></div>
+        <div class="input-group"><label>Password</label><input type="password" placeholder="••••••••"></div>
+        <button class="auth-submit">Sign in</button>
+      </div>
+      <div id="signupForm" style="display:none;">
+        <div class="input-group"><label>Full name</label><input type="text" placeholder="Your name"></div>
+        <div class="input-group"><label>Email</label><input type="email" placeholder="you@example.com"></div>
+        <div class="input-group"><label>Password</label><input type="password" placeholder="Create a password (min 8 chars)"></div>
+        <button class="auth-submit">Create free account</button>
+      </div>
+      <div class="auth-divider">or</div>
+      <button class="google-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        Continue with Google
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(btn){
+    document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  window.scrollTo(0,0);
+}
+function setFilter(btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+}
+function switchTab(tab){
+  document.getElementById('loginForm').style.display=tab==='login'?'block':'none';
+  document.getElementById('signupForm').style.display=tab==='signup'?'block':'none';
+  document.getElementById('loginTab').classList.toggle('on',tab==='login');
+  document.getElementById('signupTab').classList.toggle('on',tab==='signup');
+}
+function generateVideo(){
+  const out=document.getElementById('outputArea');
+  const spinner=document.getElementById('spinner');
+  const icon=document.getElementById('outputIcon');
+  const txt=document.getElementById('outputText');
+  const actions=document.getElementById('outputActions');
+  spinner.style.display='block';
+  icon.style.display='none';
+  actions.style.display='none';
+  txt.textContent='Generating your video…';
+  out.style.background='#f5f5f3';
+  out.style.color='#888';
+  setTimeout(()=>{
+    spinner.style.display='none';
+    out.style.background='#26215C';
+    txt.style.color='rgba(255,255,255,0.8)';
+    txt.textContent='Video ready! Click play to preview';
+    if(!document.getElementById('playIcon')){
+      const play=document.createElement('i');
+      play.id='playIcon';
+      play.className='ti ti-player-play';
+      play.style.cssText='font-size:36px;color:#fff;cursor:pointer;';
+      out.insertBefore(play,txt);
+    }
+    actions.style.display='flex';
+  },3000);
+}
+</script>
+</body>
+</html>
